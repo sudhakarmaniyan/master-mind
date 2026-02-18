@@ -1,5 +1,17 @@
 import React, { useState } from 'react';
-import { HiOutlineUser, HiOutlineMail, HiOutlinePhone, HiOutlineBookOpen, HiX, HiCheckCircle, HiOutlineCheckCircle } from 'react-icons/hi';
+import { HiOutlineUser, HiOutlineMail, HiOutlinePhone, HiOutlineBookOpen, HiX,  HiOutlineCheckCircle } from 'react-icons/hi';
+
+// 👇 1. THIS IS THE FIX: The random math is calculated ONCE outside the component
+const confettiCSS = [...Array(20)].map((_, i) => `
+  .confetti-${i} {
+    left: ${Math.random() * 100}%;
+    background-color: ${['#f47529', '#008bdc', '#22c55e', '#f59e0b', '#ec4899'][i % 5]};
+    width: ${Math.random() * 8 + 4}px;
+    height: ${Math.random() * 8 + 4}px;
+    animation: confetti-fall ${2 + Math.random() * 3}s linear infinite;
+    animation-delay: ${Math.random() * 2}s;
+  }
+`).join('');
 
 // --- PROPS INTERFACE ---
 interface EnrollmentModalProps {
@@ -9,7 +21,7 @@ interface EnrollmentModalProps {
 
 const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClose }) => {
   const [showCelebration, setShowCelebration] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  // Fixed state destructuring here
   
   const [formData, setFormData] = useState({
     fullName: '',
@@ -26,14 +38,14 @@ const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClose }) =>
     e.preventDefault();
     // Logic to send data to backend would go here
     console.log("Form Submitted:", formData);
-    setIsSubmitted(true);
+    
     setShowCelebration(true);
   };
 
   const handleCloseEverything = () => {
     setShowCelebration(false);
-    setIsSubmitted(false);
-    setFormData({ fullName: '', email: '', phone: '', course: '' }); // Optional: Clear form on close
+    
+    setFormData({ fullName: '', email: '', phone: '', course: '' }); 
     onClose(); 
   };
 
@@ -211,16 +223,8 @@ const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClose }) =>
 
         .confetti-piece { position: absolute; top: -20px; z-index: 1; }
         
-        ${[...Array(20)].map((_, i) => `
-          .confetti-${i} {
-            left: ${Math.random() * 100}%;
-            background-color: ${['#f47529', '#008bdc', '#22c55e', '#f59e0b', '#ec4899'][i % 5]};
-            width: ${Math.random() * 8 + 4}px;
-            height: ${Math.random() * 8 + 4}px;
-            animation: confetti-fall ${2 + Math.random() * 3}s linear infinite;
-            animation-delay: ${Math.random() * 2}s;
-          }
-        `).join('')}
+        /* 👇 2. Injecting the confetti styles here! */
+        ${confettiCSS}
 
         @keyframes confetti-fall {
           0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }

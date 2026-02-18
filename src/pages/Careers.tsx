@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // 1. Import Link
-import { HiOutlineLocationMarker, HiOutlineBriefcase, HiOutlineCurrencyDollar, HiOutlineArrowRight, HiChip } from 'react-icons/hi';
+import { HiOutlineLocationMarker, HiOutlineCurrencyDollar, HiOutlineArrowRight,} from 'react-icons/hi';
 
 interface JobOpening {
   id: number;
@@ -13,6 +13,9 @@ interface JobOpening {
   requirements: string[];
   image: string;
 }
+// Replace these with the actual words you use for your tabs
+type FilterTab = 'All' | 'Cloud' | 'Data' | 'Development';
+
 
 const Careers: React.FC = () => {
   const [filter, setFilter] = useState<'All' | 'Cloud' | 'Data' | 'Development'>('All');
@@ -77,7 +80,7 @@ const Careers: React.FC = () => {
             {['All', 'Cloud', 'Data', 'Development'].map((tab) => (
               <button
                 key={tab}
-                onClick={() => setFilter(tab as any)}
+                onClick={() => setFilter(tab as FilterTab)}
                 className={`px-6 py-3 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
                   filter === tab 
                     ? 'bg-slate-900 text-white shadow-lg' 

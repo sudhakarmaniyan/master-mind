@@ -1,9 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { 
-  FaPlay, 
-  FaTrophy, 
-  FaUsers, 
-  FaGraduationCap, 
   FaBriefcase, 
   FaVolumeMute, 
   FaVolumeUp, 
@@ -33,14 +29,7 @@ const MENTORS = [
   { name: "Viola Davis", role: "Full Stack Dev", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80" }
 ];
 
-const GALLERY_IMAGES = [
-  "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&w=800&q=80"
-];
+
 
 const GALLERY_ITEMS = [
   { 
@@ -110,7 +99,7 @@ export default function About() {
   // --- Auto-shuffle Video ---
   useEffect(() => {
     const interval = setInterval(() => {
-      handleNextVideo();
+      
     }, 8000); // Switch every 8s (gave a bit more time for YouTube load)
     return () => clearInterval(interval);
   }, [currentVideoIndex]);

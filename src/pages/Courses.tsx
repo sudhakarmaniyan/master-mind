@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { HiOutlineClock, HiArrowNarrowRight, HiOutlineLightningBolt, HiOutlineChip } from 'react-icons/hi';
+import { useState} from 'react';
+import { HiOutlineClock, HiArrowNarrowRight, HiOutlineLightningBolt, } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 
 // Types for better clarity
