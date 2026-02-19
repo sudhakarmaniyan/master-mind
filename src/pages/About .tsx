@@ -143,8 +143,7 @@ export default function About() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f47529] to-[#ff9f5a]">Master Minds.</span>
             </h1>
             <p className="text-lg text-slate-600 leading-relaxed max-w-lg font-medium">
-              Master Minds Learning Solutions is more than just an institute; we are a career accelerator. Founded in 2015, we bridge the gap between academic theory and the brutal demands of the tech industry.
-            </p>
+              Master Mind Learning Solutions is built on the vision of transforming education through practical innovation. Our mission is to create a dynamic learning ecosystem where students gain technical expertise, industry exposure, and career guidance.</p>
             <div className="pl-6 border-l-4 border-[#f47529]">
                 <p className="text-xl text-slate-800 italic font-serif">
                   "Stop studying, start engineering."
@@ -203,7 +202,9 @@ export default function About() {
         <div className="max-w-5xl mx-auto text-center relative z-10 reveal opacity-0 translate-y-10 transition-all duration-1000">
           <h2 className="text-3xl md:text-5xl font-bold mb-8">See Life at <span className="text-[#f47529]">Master Minds</span></h2>
           <p className="text-slate-400 mb-12 max-w-2xl mx-auto">
-            Experience the energy of our classrooms, the intensity of our hackathons, and the joy of our graduation ceremonies.
+            Experience a vibrant and inspiring learning environment where innovation meets collaboration. At Master Mind Learning Solutions, students engage in hands-on projects, technical workshops, group discussions, and mentorship sessions that shape both their skills and confidence.
+
+From interactive classrooms to career-focused events, life at Master Minds is designed to prepare you for real-world success.
           </p>
 
           <div className="relative group rounded-[3rem] overflow-hidden shadow-2xl border-4 border-slate-800 bg-black aspect-video md:h-[500px]">
@@ -278,7 +279,7 @@ export default function About() {
                 <FaCamera className="text-[#0078d4] text-2xl opacity-50" />
               </h2>
               <p className="text-slate-500 text-lg">
-                More than just classrooms. A glimpse into our vibrant culture, events, and student life.
+                Explore the vibrant moments that define life at Master Mind Learning Solutions. From interactive classroom sessions and technical workshops to project presentations and career development programs, our campus reflects a culture of learning, collaboration, and growth.
               </p>
             </div>
             {/* Optional 'View All' Button */}

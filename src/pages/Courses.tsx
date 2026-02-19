@@ -66,7 +66,9 @@ export default function Courses() {
             Skill up with <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#008bdc] to-[#00c6ff]">Master Minds</span>
           </h1>
           <p className="text-slate-500 mt-4 max-w-xl text-lg">
-            Every course is integrated with real-world capstone projects and guided by industry mentors.
+            Our curriculum is carefully designed to align with current industry standards and technological advancements. We combine strong foundational concepts with hands-on practical training to ensure students gain both theoretical knowledge and real-world expertise.
+
+Each program includes live projects, case studies, assessments, and mentorship to prepare students for successful careers in the technology industry.
           </p>
         </div>
 

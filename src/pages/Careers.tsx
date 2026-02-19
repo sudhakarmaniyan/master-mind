@@ -71,7 +71,9 @@ const Careers: React.FC = () => {
               Shape the Future of <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f27324] to-orange-400">Tech Education</span>
             </h1>
             <p className="text-slate-500 mt-6 text-lg font-medium leading-relaxed">
-              We're looking for passionate engineers, mentors, and visionaries to help us build India's most practical tech bootcamp.
+              We are committed to delivering industry-aligned training and empowering students with real-world skills. If you are passionate about learning, growth, and career success, Master Mind Learning Solutions is the right place for you.
+
+Take the first step toward a brighter future.
             </p>
           </div>
 
