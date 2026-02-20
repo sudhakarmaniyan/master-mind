@@ -1,9 +1,7 @@
 import React from 'react';
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
-// Added Heroicons for the outline location and phone icons
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube, FaWhatsapp } from 'react-icons/fa';
 import { HiOutlineLocationMarker, HiOutlinePhone } from 'react-icons/hi';
 import logoImg from '../../public/Master Mind Logo.png';
-
 
 const Footer: React.FC = () => {
   return (
@@ -22,12 +20,54 @@ const Footer: React.FC = () => {
           <div className="pt-2">
             <p className="text-[#f27324] font-medium text-sm mb-4">Follow us on :</p>
             <div className="flex gap-5 text-gray-500 text-lg">
-              <FaFacebookF className="cursor-pointer hover:text-[#008bdc] transition-colors" />
-              {/* Note: If you want the exact 'X' logo, use FaXTwitter from 'react-icons/fa6' */}
-              <FaTwitter className="cursor-pointer hover:text-[#008bdc] transition-colors" />
-              <FaInstagram className="cursor-pointer hover:text-[#008bdc] transition-colors" />
-              <FaLinkedinIn className="cursor-pointer hover:text-[#008bdc] transition-colors" />
-              <FaYoutube className="cursor-pointer hover:text-[#008bdc] transition-colors" />
+              <a 
+                href="https://www.facebook.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="cursor-pointer hover:text-[#008bdc] transition-colors"
+              >
+                <FaFacebookF />
+              </a>
+              <a 
+                href="https://twitter.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="cursor-pointer hover:text-[#008bdc] transition-colors"
+              >
+                <FaTwitter />
+              </a>
+              <a 
+                href="https://www.instagram.com/master_mind_learning_solutions/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="cursor-pointer hover:text-[#008bdc] transition-colors"
+              >
+                <FaInstagram />
+              </a>
+              <a 
+                href="https://www.linkedin.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="cursor-pointer hover:text-[#008bdc] transition-colors"
+              >
+                <FaLinkedinIn />
+              </a>
+              <a 
+                href="https://www.youtube.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="cursor-pointer hover:text-[#008bdc] transition-colors"
+              >
+                <FaYoutube />
+              </a>
+              <a 
+                href="https://wa.me/917676809008?partnertoken=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJodHRwczovL3dhLm1lLzkxNzY3NjgwOTAwOCIsImlzcyI6Ikdvb2dsZSIsImV4cCI6MTc3MTUxNTM5MywiaWF0IjoxNzcxNTE1MDkzfQ.2ROgr6gPABhUy_LdE0H4GtfyoLYQuokoQahV40NCVwwuxIEytUtzLRCMNLFtEySMz57Pm0RgIE7FhP5XZxbpAg"
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="cursor-pointer hover:text-[#25D366] transition-colors"
+              >
+                <FaWhatsapp />
+              </a>
             </div>
           </div>
         </div>
@@ -62,11 +102,38 @@ const Footer: React.FC = () => {
             </div>
             <div className="flex gap-3 items-center">
               <HiOutlinePhone className="text-gray-400 text-xl shrink-0" />
-              <p>076788 09008</p>
+              <a href="tel:+917676809008" className="hover:text-[#008bdc] transition-colors">+91 76768 09008</a>
+            </div>
+            <div className="flex gap-3 items-center">
+              <FaWhatsapp className="text-gray-400 text-xl shrink-0" />
+              <a 
+                href="https://wa.me/917676809008?partnertoken=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJodHRwczovL3dhLm1lLzkxNzY3NjgwOTAwOCIsImlzcyI6Ikdvb2dsZSIsImV4cCI6MTc3MTUxNTM5MywiaWF0IjoxNzcxNTE1MDkzfQ.2ROgr6gPABhUy_LdE0H4GtfyoLYQuokoQahV40NCVwwuxIEytUtzLRCMNLFtEySMz57Pm0RgIE7FhP5XZxbpAg"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#25D366] transition-colors"
+              >
+                Chat on WhatsApp
+              </a>
+            </div>
+            <div className="flex gap-3 items-center">
+              <FaInstagram className="text-gray-400 text-xl shrink-0" />
+              <a 
+                href="https://www.instagram.com/master_mind_learning_solutions/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#E4405F] transition-colors"
+              >
+                @master_mind_learning_solutions
+              </a>
             </div>
           </div>
         </div>
 
+      </div>
+      
+      {/* Bottom Copyright Bar */}
+      <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-gray-200 text-center text-gray-400 text-sm">
+        <p>© {new Date().getFullYear()} Master Mind Learning Solutions. All rights reserved.</p>
       </div>
     </footer>
   );

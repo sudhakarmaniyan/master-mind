@@ -1,12 +1,8 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-// ❌ WARNING: Notice how I deleted the `import logoImg ...` line here! 
-// Never import from the public folder.
-
 export default function Navbar() {
   const location = useLocation();
-  // State to manage the mobile menu open/close
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -23,17 +19,9 @@ export default function Navbar() {
 
         /* --- Logo Animation (Non-Inverted 3D Flip) --- */
         @keyframes flip-glimmer {
-          0% { 
-            transform: perspective(1000px) rotateY(0deg); 
-            filter: drop-shadow(0 0 2px rgba(251,191,36,0.3)); 
-          }
-          50% { 
-            transform: perspective(1000px) rotateY(90deg); 
-          }
-          100% { 
-            transform: perspective(1000px) rotateY(0deg); 
-            filter: drop-shadow(0 0 8px rgba(251,191,36,0.8)); 
-          }
+          0% { transform: perspective(1000px) rotateY(0deg); filter: drop-shadow(0 0 2px rgba(251,191,36,0.3)); }
+          50% { transform: perspective(1000px) rotateY(90deg); }
+          100% { transform: perspective(1000px) rotateY(0deg); filter: drop-shadow(0 0 8px rgba(251,191,36,0.8)); }
         }
         
         .logo-flip {
@@ -51,9 +39,7 @@ export default function Navbar() {
           transition: color 0.3s ease, transform 0.1s ease;
         }
 
-        .nav-item:hover {
-          color: #f47529;
-        }
+        .nav-item:hover { color: #f47529; }
 
         .nav-item::after {
           content: '';
@@ -67,20 +53,10 @@ export default function Navbar() {
           border-radius: 2px;
         }
 
-        .nav-item:hover::after {
-          width: 100%;
-        }
-
-        .nav-item:active {
-          transform: scale(0.95);
-        }
-
-        .nav-item.active {
-          color: #f47529;
-        }
-        .nav-item.active::after {
-          width: 100%;
-        }
+        .nav-item:hover::after { width: 100%; }
+        .nav-item:active { transform: scale(0.95); }
+        .nav-item.active { color: #f47529; }
+        .nav-item.active::after { width: 100%; }
 
         /* --- Enroll Button --- */
         .btn-enroll {
@@ -98,22 +74,14 @@ export default function Navbar() {
           text-align: center;
         }
 
-        .btn-enroll:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(0, 120, 212, 0.4);
-        }
-
-        .btn-enroll:active {
-          transform: translateY(0);
-        }
+        .btn-enroll:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 120, 212, 0.4); }
+        .btn-enroll:active { transform: translateY(0); }
       `}</style>
 
       <nav className="navbar-glass sticky top-0 z-[1000] w-full px-4 md:px-8 py-3 lg:py-0">
         <div className="max-w-[1400px] mx-auto w-full flex justify-between items-center h-[70px]">
           
-          {/* LOGO SECTION */}
           <Link to="/" className="flex items-center gap-3 decoration-none z-50">
-            {/* ✅ FIXED IMAGE PATH: Make sure your file in 'public' is named exactly like this! */}
             <img 
               src="/logo.png" 
               alt="Logo" 
@@ -122,23 +90,19 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* DESKTOP LINKS SECTION (Hidden on mobile) */}
           <ul className="hidden lg:flex gap-[2.5rem] list-none items-center m-0 p-0">
             <li><a href="/#home" className="nav-item">Home</a></li>
             <li><Link to="/about" className={`nav-item ${location.pathname === '/about' ? 'active' : ''}`}>About Us</Link></li>
             <li><Link to="/courses" className={`nav-item ${location.pathname === '/courses' ? 'active' : ''}`}>Courses</Link></li>
+            {/* NEW SERVICES LINK ADDED HERE */}
+            <li><Link to="/services" className={`nav-item ${location.pathname === '/services' ? 'active' : ''}`}>Services</Link></li>
             <li><Link to="/careers" className={`nav-item ${location.pathname === '/careers' ? 'active' : ''}`}>Careers</Link></li>
             <li><Link to="/contact" className={`nav-item ${location.pathname === '/contact' ? 'active' : ''}`}>Contact Us</Link></li>
-            
-            {/* CTA BUTTON */}
             <li>
-              <Link to="/enroll" className="btn-enroll">
-                Enroll Now
-              </Link>
+              <Link to="/enroll" className="btn-enroll">Enroll Now</Link>
             </li>
           </ul>
 
-          {/* MOBILE HAMBURGER BUTTON (Hidden on desktop) */}
           <button 
             className="lg:hidden text-slate-700 p-2 focus:outline-none z-50"
             onClick={() => setIsOpen(!isOpen)}
@@ -154,18 +118,16 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* MOBILE DROPDOWN MENU */}
         {isOpen && (
           <div className="lg:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-2xl flex flex-col py-6 px-6 gap-6 animate-fade-in z-40">
             <a href="/#home" onClick={() => setIsOpen(false)} className="nav-item text-lg border-b border-slate-100 pb-2">Home</a>
             <Link to="/about" onClick={() => setIsOpen(false)} className={`nav-item text-lg border-b border-slate-100 pb-2 ${location.pathname === '/about' ? 'active' : ''}`}>About Us</Link>
             <Link to="/courses" onClick={() => setIsOpen(false)} className={`nav-item text-lg border-b border-slate-100 pb-2 ${location.pathname === '/courses' ? 'active' : ''}`}>Courses</Link>
+            {/* NEW SERVICES LINK ADDED HERE FOR MOBILE */}
+            <Link to="/services" onClick={() => setIsOpen(false)} className={`nav-item text-lg border-b border-slate-100 pb-2 ${location.pathname === '/services' ? 'active' : ''}`}>Services</Link>
             <Link to="/careers" onClick={() => setIsOpen(false)} className={`nav-item text-lg border-b border-slate-100 pb-2 ${location.pathname === '/careers' ? 'active' : ''}`}>Careers</Link>
             <Link to="/contact" onClick={() => setIsOpen(false)} className={`nav-item text-lg border-b border-slate-100 pb-2 ${location.pathname === '/contact' ? 'active' : ''}`}>Contact Us</Link>
-            
-            <Link to="/enroll" onClick={() => setIsOpen(false)} className="btn-enroll w-full mt-2">
-              Enroll Now
-            </Link>
+            <Link to="/enroll" onClick={() => setIsOpen(false)} className="btn-enroll w-full mt-2">Enroll Now</Link>
           </div>
         )}
       </nav>

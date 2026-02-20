@@ -7,7 +7,7 @@ import {
   HiOutlinePaperAirplane,
   HiOutlineGlobeAlt
 } from 'react-icons/hi';
-import { FaInstagram, FaLinkedinIn, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaInstagram, FaLinkedinIn, FaTwitter, FaYoutube, FaWhatsapp } from 'react-icons/fa';
 
 const Contact: React.FC = () => {
   return (
@@ -36,8 +36,9 @@ const Contact: React.FC = () => {
           
           {/* Quick Contact Cards */}
           {[
-            { icon: <HiOutlinePhone />, label: "Call Us", val: "+91 72788 09008", color: "text-blue-500", bg: "bg-blue-50" },
-            { icon: <HiOutlineMail />, label: "Email Support", val: "hello@masterminds.com", color: "text-[#f27324]", bg: "bg-orange-50" },
+            { icon: <HiOutlinePhone />, label: "Call Us", val: "+91 76768 09008", link: "tel:+917676809008", color: "text-blue-500", bg: "bg-blue-50" },
+            { icon: <HiOutlineMail />, label: "Email Support", val: "blrelectroniccity@gmail.com", link: "mailto:blrelectroniccity@gmail.com", color: "text-[#f27324]", bg: "bg-orange-50" },
+            { icon: <FaWhatsapp />, label: "WhatsApp", val: "Chat with us", link: "https://wa.me/917676809008?partnertoken=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJodHRwczovL3dhLm1lLzkxNzY3NjgwOTAwOCIsImlzcyI6Ikdvb2dsZSIsImV4cCI6MTc3MTUxNTM5MywiaWF0IjoxNzcxNTE1MDkzfQ.2ROgr6gPABhUy_LdE0H4GtfyoLYQuokoQahV40NCVwwuxIEytUtzLRCMNLFtEySMz57Pm0RgIE7FhP5XZxbpAg", color: "text-green-500", bg: "bg-green-50" },
             { icon: <HiOutlineClock />, label: "Working Hours", val: "Mon - Sat: 9 AM - 7 PM", color: "text-purple-500", bg: "bg-purple-50" }
           ].map((item, i) => (
             <div key={i} className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-all group flex items-center gap-5">
@@ -46,10 +47,39 @@ const Contact: React.FC = () => {
               </div>
               <div>
                 <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">{item.label}</p>
-                <p className="text-slate-900 font-bold text-lg">{item.val}</p>
+                {item.link ? (
+                  <a 
+                    href={item.link}
+                    target={item.label === "WhatsApp" ? "_blank" : undefined}
+                    rel={item.label === "WhatsApp" ? "noopener noreferrer" : undefined}
+                    className="text-slate-900 font-bold text-lg hover:text-[#f27324] transition-colors"
+                  >
+                    {item.val}
+                  </a>
+                ) : (
+                  <p className="text-slate-900 font-bold text-lg">{item.val}</p>
+                )}
               </div>
             </div>
           ))}
+
+          {/* Instagram Card */}
+          <div className="bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 rounded-[2rem] p-6 text-white shadow-lg hover:shadow-xl transition-all group">
+            <a 
+              href="https://www.instagram.com/master_mind_learning_solutions/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-5"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+                <FaInstagram />
+              </div>
+              <div>
+                <p className="text-xs font-black uppercase tracking-widest text-white/80 mb-1">Follow Us</p>
+                <p className="font-bold text-lg">@master_mind_learning_solutions</p>
+              </div>
+            </a>
+          </div>
 
           {/* Location Block with Mini Map */}
           <div className="bg-slate-900 rounded-[2.5rem] p-8 text-white relative overflow-hidden group">
@@ -64,7 +94,7 @@ const Contact: React.FC = () => {
                 Karnataka 560100
               </p>
               <a 
-                href="https://maps.google.com" 
+                href="https://maps.google.com/?q=395+48+Hosur+Rd+Electronic+City+Bengaluru" 
                 target="_blank" 
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 text-[#f27324] font-black uppercase text-xs tracking-widest hover:text-white transition-colors"
@@ -135,7 +165,7 @@ const Contact: React.FC = () => {
       <section className="px-6 pb-24">
         <div className="max-w-7xl mx-auto h-[450px] rounded-[3rem] overflow-hidden border-8 border-white shadow-2xl relative">
           <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.3906354894675!2d77.6713437750749!3d12.836054987466804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae6ce06716075b%3A0x6b77292215f9b40!2sHosur%20Rd%2C%20Electronic%20City%2C%20Bengaluru%2C%20Karnataka%20560100!5e0!3m2!1sen!2sin!4v1715856400000!5m2!1sen!2sin"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3890.1306473489817!2d77.67679071015431!3d12.834833117810781!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae6d1c3868b67d%3A0x32ec955bf9ca2e2d!2sMaster%20Mind%20Learning%20Solutions!5e0!3m2!1sen!2sin!4v1771595608773!5m2!1sen!2sin"
             width="100%" 
             height="100%" 
             style={{ border: 0, filter: 'grayscale(100%) contrast(1.2) invert(0.05)' }} 
@@ -157,14 +187,21 @@ const Contact: React.FC = () => {
            <h4 className="text-2xl font-black text-slate-900">Follow our <span className="text-blue-500">Journey</span></h4>
            <div className="flex flex-wrap justify-center gap-4">
               {[
-                { icon: <FaInstagram />, label: "Instagram", color: "hover:bg-pink-500" },
-                { icon: <FaLinkedinIn />, label: "LinkedIn", color: "hover:bg-blue-700" },
-                { icon: <FaTwitter />, label: "Twitter", color: "hover:bg-sky-500" },
-                { icon: <FaYoutube />, label: "YouTube", color: "hover:bg-red-600" }
+                { icon: <FaInstagram />, label: "Instagram", link: "https://www.instagram.com/master_mind_learning_solutions/", color: "hover:bg-pink-500" },
+                { icon: <FaWhatsapp />, label: "WhatsApp", link: "https://wa.me/917676809008?partnertoken=eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJodHRwczovL3dhLm1lLzkxNzY3NjgwOTAwOCIsImlzcyI6Ikdvb2dsZSIsImV4cCI6MTc3MTUxNTM5MywiaWF0IjoxNzcxNTE1MDkzfQ.2ROgr6gPABhUy_LdE0H4GtfyoLYQuokoQahV40NCVwwuxIEytUtzLRCMNLFtEySMz57Pm0RgIE7FhP5XZxbpAg", color: "hover:bg-green-600" },
+                { icon: <FaLinkedinIn />, label: "LinkedIn", link: "https://www.linkedin.com", color: "hover:bg-blue-700" },
+                { icon: <FaTwitter />, label: "Twitter", link: "https://twitter.com", color: "hover:bg-sky-500" },
+                { icon: <FaYoutube />, label: "YouTube", link: "https://www.youtube.com", color: "hover:bg-red-600" }
               ].map((soc, i) => (
-                <button key={i} className={`w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-xl text-slate-400 transition-all ${soc.color} hover:text-white hover:-translate-y-1`}>
+                <a 
+                  key={i}
+                  href={soc.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-xl text-slate-400 transition-all ${soc.color} hover:text-white hover:-translate-y-1`}
+                >
                   {soc.icon}
-                </button>
+                </a>
               ))}
            </div>
         </div>

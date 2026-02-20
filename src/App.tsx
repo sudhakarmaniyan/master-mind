@@ -49,6 +49,7 @@ import About from './pages/About ';
 import Courses from './pages/Courses';
 import Contact from './pages/Contact';
 import CareerDetail from './pages/CareersDetail'; // Ensure this matches your renamed file
+import Services from './pages/Services';
 
 function App() {
   return (
@@ -73,6 +74,7 @@ function App() {
           <Route path="blog" element={<Blog />} />
           <Route path="contact" element={<Contact />} />
           <Route path="about" element={<About />} />
+          <Route path="/services" element={<Services />} />
         </Route>
       </Routes>
     </BrowserRouter>
