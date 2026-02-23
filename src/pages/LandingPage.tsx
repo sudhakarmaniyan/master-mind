@@ -56,31 +56,43 @@ const SUCCESS_STORIES = [
   }
 ];
 
-// --- Courses Data ---
+// --- Courses Data (Updated Specialized Tracks) ---
 const COURSES = [
   { 
-    id: 1, title: ".NET Full Stack", desc: "Master C#, .NET Core, WebAPI, and SQL Server.", 
-    icon: <FaMicrosoft />, color: "text-purple-600", bg: "bg-purple-50", border: "group-hover:border-purple-200", btn: "text-purple-600"
+    id: 1, title: "Cloud Computing", desc: "Master AWS, Azure, and Google Cloud infrastructure and deployments.", 
+    icon: <FaCloud />, color: "text-blue-500", bg: "bg-blue-50", border: "group-hover:border-blue-200", btn: "text-blue-500"
   },
   { 
-    id: 2, title: "AWS Cloud", desc: "Become a certified AWS Architect. Learn EC2, Lambda, S3.", 
-    icon: <FaCloud />, color: "text-orange-500", bg: "bg-orange-50", border: "group-hover:border-orange-200", btn: "text-orange-500"
+    id: 2, title: "Manual/Auto Testing", desc: "Learn QA fundamentals, Selenium, Cypress, and robust automation frameworks.", 
+    icon: <FaCheckCircle />, color: "text-green-500", bg: "bg-green-50", border: "group-hover:border-green-200", btn: "text-green-500"
   },
   { 
-    id: 3, title: "Data Science", desc: "From Python basics to Deep Learning models.", 
-    icon: <FaDatabase />, color: "text-blue-500", bg: "bg-blue-50", border: "group-hover:border-blue-200", btn: "text-blue-500"
+    id: 3, title: "Data Analytics", desc: "Extract actionable insights using Python, SQL, PowerBI, and Tableau.", 
+    icon: <FaDatabase />, color: "text-purple-600", bg: "bg-purple-50", border: "group-hover:border-purple-200", btn: "text-purple-600"
   },
   { 
-    id: 4, title: "Java Full Stack", desc: "Build robust enterprise apps with Java, Spring Boot & Microservices.", 
-    icon: <FaCode />, color: "text-red-500", bg: "bg-red-50", border: "group-hover:border-red-200", btn: "text-red-500"
+    id: 4, title: "Full Stack", desc: "End-to-end web development with modern frontend and backend frameworks.", 
+    icon: <FaLaptopCode />, color: "text-indigo-500", bg: "bg-indigo-50", border: "group-hover:border-indigo-200", btn: "text-indigo-500"
   },
   { 
-    id: 5, title: "DevOps Engineering", desc: "Master CI/CD, Docker, Kubernetes & Terraform.", 
-    icon: <FaRocket />, color: "text-green-500", bg: "bg-green-50", border: "group-hover:border-green-200", btn: "text-green-500" 
+    id: 5, title: "Networking", desc: "Master network architecture, routing, switching, and security fundamentals.", 
+    icon: <FaCode />, color: "text-red-500", bg: "bg-red-50", border: "group-hover:border-red-200", btn: "text-red-500" 
   },
   { 
-    id: 6, title: "MERN Stack", desc: "Full stack development with MongoDB, Express, React & Node.", 
-    icon: <FaLaptopCode />, color: "text-cyan-500", bg: "bg-cyan-50", border: "group-hover:border-cyan-200", btn: "text-cyan-500"
+    id: 6, title: "Scrum Master", desc: "Lead teams effectively with Agile methodologies and sprint planning.", 
+    icon: <FaHandshake />, color: "text-orange-500", bg: "bg-orange-50", border: "group-hover:border-orange-200", btn: "text-orange-500"
+  },
+  { 
+    id: 7, title: "SAP", desc: "Gain expertise in enterprise resource planning and core business operations.", 
+    icon: <FaBuilding />, color: "text-cyan-600", bg: "bg-cyan-50", border: "group-hover:border-cyan-200", btn: "text-cyan-600"
+  },
+  { 
+    id: 8, title: "CADD", desc: "Professional computer-aided design and drafting for modern engineering.", 
+    icon: <FaChalkboardTeacher />, color: "text-teal-600", bg: "bg-teal-50", border: "group-hover:border-teal-200", btn: "text-teal-600"
+  },
+  { 
+    id: 9, title: "Tally", desc: "Master accounting, inventory management, and financial compliance.", 
+    icon: <FaAward />, color: "text-pink-600", bg: "bg-pink-50", border: "group-hover:border-pink-200", btn: "text-pink-600"
   }
 ];
 
@@ -314,8 +326,8 @@ export default function LandingPage() {
 
       {/* Add padding-top to account for fixed navbar */}
       <div className="pt-16">
-        {/* --- 1. HERO with enhanced animations --- */}
-        <section className="relative w-full pt-32 pb-16 md:pt-40 md:pb-24 lg:pt-48 lg:pb-32 px-4 md:px-6 overflow-hidden">
+        {/* --- 1. HERO with enhanced animations (Updated Padding) --- */}
+        <section className="relative w-full pt-12 pb-16 md:pt-16 md:pb-24 lg:pt-20 lg:pb-32 px-4 md:px-6 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-blue-50 opacity-30"></div>
           <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10">
             <div className="space-y-6 md:space-y-8 text-center lg:text-left reveal stagger-child">

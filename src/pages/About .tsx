@@ -29,8 +29,6 @@ const MENTORS = [
   { name: "Viola Davis", role: "Full Stack Dev", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80" }
 ];
 
-
-
 const GALLERY_ITEMS = [
   { 
     id: 1,
@@ -99,7 +97,7 @@ export default function About() {
   // --- Auto-shuffle Video ---
   useEffect(() => {
     const interval = setInterval(() => {
-      
+      setCurrentVideoIndex((prev) => (prev + 1) % CAMPUS_VIDEOS.length);
     }, 8000); // Switch every 8s (gave a bit more time for YouTube load)
     return () => clearInterval(interval);
   }, [currentVideoIndex]);
@@ -131,8 +129,8 @@ export default function About() {
         }
       `}</style>
 
-      {/* 1. HERO: About Mastermind */}
-      <section className="relative pt-32 pb-20 px-6">
+      {/* 1. HERO: About Mastermind (PADDING REDUCED HERE) */}
+      <section className="relative pt-16 md:pt-20 lg:pt-24 pb-20 px-6">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 reveal opacity-0 translate-y-10 transition-all duration-1000">
             <div className="inline-block px-4 py-2 bg-orange-50 text-[#f47529] font-bold rounded-full text-sm tracking-widest uppercase border border-orange-100">
@@ -143,7 +141,8 @@ export default function About() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f47529] to-[#ff9f5a]">Master Minds.</span>
             </h1>
             <p className="text-lg text-slate-600 leading-relaxed max-w-lg font-medium">
-              Master Mind Learning Solutions is built on the vision of transforming education through practical innovation. Our mission is to create a dynamic learning ecosystem where students gain technical expertise, industry exposure, and career guidance.</p>
+              Master Mind Learning Solutions is built on the vision of transforming education through practical innovation. Our mission is to create a dynamic learning ecosystem where students gain technical expertise, industry exposure, and career guidance.
+            </p>
             <div className="pl-6 border-l-4 border-[#f47529]">
                 <p className="text-xl text-slate-800 italic font-serif">
                   "Stop studying, start engineering."
@@ -154,7 +153,7 @@ export default function About() {
           <div className="relative reveal opacity-0 translate-y-10 transition-all duration-1000 delay-200">
             <div className="absolute inset-0 bg-[#f47529] rounded-[3rem] rotate-6 opacity-10"></div>
             <img 
-              src="https://img.freepik.com/free-photo/lavender-field-sunset-near-valensole_268835-3910.jpg?semt=ais_hybrid&w=740&q=80 " 
+              src="https://img.freepik.com/free-photo/lavender-field-sunset-near-valensole_268835-3910.jpg?semt=ais_hybrid&w=740&q=80" 
               alt="About Us Hero" 
               className="relative z-10 w-full rounded-[3rem] shadow-2xl transform hover:-rotate-2 transition-transform duration-500"
             />
