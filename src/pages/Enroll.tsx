@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HiOutlineUser, HiOutlineMail, HiOutlinePhone, HiOutlineBookOpen, HiX,  HiOutlineCheckCircle } from 'react-icons/hi';
+import { HiOutlineUser, HiOutlineMail, HiOutlinePhone, HiOutlineBookOpen, HiX, HiOutlineCheckCircle } from 'react-icons/hi';
 
 // 👇 1. THIS IS THE FIX: The random math is calculated ONCE outside the component
 const confettiCSS = [...Array(20)].map((_, i) => `
@@ -13,6 +13,9 @@ const confettiCSS = [...Array(20)].map((_, i) => `
   }
 `).join('');
 
+// Company WhatsApp number (format: country code + number without +)
+const COMPANY_WHATSAPP = "917676809008"; // Replace with your actual number
+
 // --- PROPS INTERFACE ---
 interface EnrollmentModalProps {
   isOpen: boolean;
@@ -21,7 +24,7 @@ interface EnrollmentModalProps {
 
 const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClose }) => {
   const [showCelebration, setShowCelebration] = useState(false);
-  // Fixed state destructuring here
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const [formData, setFormData] = useState({
     fullName: '',
@@ -34,17 +37,43 @@ const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClose }) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Logic to send data to backend would go here
-    console.log("Form Submitted:", formData);
-    
-    setShowCelebration(true);
+    setIsSubmitting(true);
+
+    try {
+      // Get course display name
+      const courseDisplay = formData.course === 'AWS' ? 'AWS Cloud Engineering' :
+                           formData.course === 'DataScience' ? 'Data Science Professional' :
+                           formData.course === 'FullStack' ? 'Full Stack Development' : formData.course;
+
+      // Format the WhatsApp message
+      const message = `*New Enrollment Application*%0A%0A` +
+        `*Student Details:*%0A` +
+        `👤 *Name:* ${formData.fullName}%0A` +
+        `📧 *Email:* ${formData.email}%0A` +
+        `📞 *Phone:* ${formData.phone}%0A` +
+        `📚 *Course:* ${courseDisplay}%0A` +
+        `🕐 *Applied:* ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`;
+
+      // Create WhatsApp URL and open in new tab
+      const whatsappUrl = `https://wa.me/${COMPANY_WHATSAPP}?text=${message}`;
+      window.open(whatsappUrl, '_blank');
+
+      // Show celebration
+      setShowCelebration(true);
+      console.log("Form Submitted:", formData);
+
+    } catch (error) {
+      console.error('Error sending WhatsApp message:', error);
+      alert('There was an error submitting your application. Please try again or contact support directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleCloseEverything = () => {
     setShowCelebration(false);
-    
     setFormData({ fullName: '', email: '', phone: '', course: '' }); 
     onClose(); 
   };
@@ -95,7 +124,7 @@ const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClose }) =>
                 </h2>
                 
                 <p className="text-slate-500 text-sm font-medium leading-relaxed mb-8 z-10 max-w-[80%]">
-                    You've taken the first step. We will contact you shortly!
+                    Your application has been submitted! Our team will contact you shortly via WhatsApp.
                 </p>
 
                 <button 
@@ -135,7 +164,8 @@ const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClose }) =>
                         onChange={handleChange}
                         type="text" 
                         placeholder="Full Name" 
-                        className="w-full pl-10 pr-4 py-3 text-slate-900 placeholder:text-slate-300 font-bold outline-none border-b-2 border-slate-100 focus:border-[#008bdc] transition-all bg-transparent" 
+                        className="w-full pl-10 pr-4 py-3 text-slate-900 placeholder:text-slate-300 font-bold outline-none border-b-2 border-slate-100 focus:border-[#008bdc] transition-all bg-transparent"
+                        disabled={isSubmitting}
                     />
                 </div>
 
@@ -150,7 +180,8 @@ const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClose }) =>
                         onChange={handleChange}
                         type="email" 
                         placeholder="Email Address" 
-                        className="w-full pl-10 pr-4 py-3 text-slate-900 placeholder:text-slate-300 font-bold outline-none border-b-2 border-slate-100 focus:border-[#008bdc] transition-all bg-transparent" 
+                        className="w-full pl-10 pr-4 py-3 text-slate-900 placeholder:text-slate-300 font-bold outline-none border-b-2 border-slate-100 focus:border-[#008bdc] transition-all bg-transparent"
+                        disabled={isSubmitting}
                     />
                 </div>
 
@@ -165,7 +196,8 @@ const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClose }) =>
                         onChange={handleChange}
                         type="tel" 
                         placeholder="Phone Number" 
-                        className="w-full pl-10 pr-4 py-3 text-slate-900 placeholder:text-slate-300 font-bold outline-none border-b-2 border-slate-100 focus:border-[#008bdc] transition-all bg-transparent" 
+                        className="w-full pl-10 pr-4 py-3 text-slate-900 placeholder:text-slate-300 font-bold outline-none border-b-2 border-slate-100 focus:border-[#008bdc] transition-all bg-transparent"
+                        disabled={isSubmitting}
                     />
                 </div>
 
@@ -179,6 +211,7 @@ const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClose }) =>
                         value={formData.course}
                         onChange={handleChange}
                         className="w-full pl-10 pr-8 py-3 text-slate-900 font-bold outline-none border-b-2 border-slate-100 focus:border-[#008bdc] transition-all bg-transparent appearance-none cursor-pointer"
+                        disabled={isSubmitting}
                     >
                         <option value="">Select Your Course</option>
                         <option value="AWS">AWS Cloud Engineering</option>
@@ -190,15 +223,36 @@ const EnrollmentModal: React.FC<EnrollmentModalProps> = ({ isOpen, onClose }) =>
 
                 <button 
                     type="submit" 
-                    className="w-full group flex items-center justify-center gap-3 bg-slate-900 text-white py-5 rounded-[2rem] font-black uppercase tracking-[0.2em] text-xs hover:bg-[#008bdc] transition-all shadow-xl shadow-slate-200 mt-2"
+                    disabled={isSubmitting}
+                    className={`w-full group flex items-center justify-center gap-3 bg-slate-900 text-white py-5 rounded-[2rem] font-black uppercase tracking-[0.2em] text-xs hover:bg-[#008bdc] transition-all shadow-xl shadow-slate-200 mt-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                 >
-                    <span>Submit Application</span>
-                    <HiOutlineCheckCircle className="text-xl group-hover:scale-125 transition-transform" />
+                    {isSubmitting ? (
+                        <>
+                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span>Submitting...</span>
+                        </>
+                    ) : (
+                        <>
+                            <span>Submit Application</span>
+                            <HiOutlineCheckCircle className="text-xl group-hover:scale-125 transition-transform" />
+                        </>
+                    )}
                 </button>
             </form>
 
             <p className="text-center text-[10px] font-bold text-slate-400 mt-8 uppercase tracking-widest">
-                Need help? <a href="#" className="text-[#f47529] hover:underline">Contact Support</a>
+                Need help?{' '}
+                <a 
+                    href={`https://wa.me/${COMPANY_WHATSAPP}?text=Hi%2C%20I%20need%20help%20with%20enrollment`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#f47529] hover:underline"
+                >
+                    Contact Support
+                </a>
             </p>
         </div>
       </div>

@@ -19,7 +19,10 @@ import {
   FaBuilding,
   FaPaperPlane,
   FaMapMarkedAlt,
+  FaUser,
+  FaWhatsapp
 } from 'react-icons/fa';
+import { HiOutlineUser, HiOutlineMail, HiOutlinePhone, HiOutlineBookOpen, HiOutlineCheckCircle, HiOutlinePaperAirplane } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 
 // --- Success Stories Data (Indian Names and Companies) ---
@@ -120,12 +123,23 @@ const CAMPUS_IMAGES = [
   }
 ];
 
+// Company WhatsApp number
+const COMPANY_WHATSAPP = "917676809008";
+
 export default function LandingPage() {
   
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    course: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
   
   // --- Effects ---
   useEffect(() => {
@@ -168,6 +182,62 @@ export default function LandingPage() {
       clearInterval(imageInterval);
     };
   }, [isHovering]); 
+
+  // Handle form input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Get course display name
+      const courseDisplay = formData.course === 'cloud' ? 'Cloud Computing' :
+                           formData.course === 'testing' ? 'Manual/Automation Testing' :
+                           formData.course === 'data' ? 'Data Analytics' :
+                           formData.course === 'fullstack' ? 'Full Stack Development' :
+                           formData.course === 'networking' ? 'Networking' :
+                           formData.course === 'scrum' ? 'Scrum Master' :
+                           formData.course === 'sap' ? 'SAP' :
+                           formData.course === 'cadd' ? 'CADD' :
+                           formData.course === 'tally' ? 'Tally' : 'Not selected';
+
+      // Format the WhatsApp message
+      const message = `*New Enrollment Application*%0A%0A` +
+        `*Student Details:*%0A` +
+        `👤 *Name:* ${formData.fullName}%0A` +
+        `📧 *Email:* ${formData.email}%0A` +
+        `📞 *Phone:* ${formData.phone}%0A` +
+        `📚 *Course:* ${courseDisplay}%0A` +
+        `🕐 *Applied:* ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`;
+
+      // Create WhatsApp URL and open in new tab
+      const whatsappUrl = `https://wa.me/${COMPANY_WHATSAPP}?text=${message}`;
+      window.open(whatsappUrl, '_blank');
+
+      // Show thank you message
+      setShowThankYou(true);
+      
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setShowThankYou(false);
+        setFormData({ fullName: '', email: '', phone: '', course: '' });
+      }, 3000);
+
+    } catch (error) {
+      console.error('Error sending WhatsApp message:', error);
+      alert('There was an error submitting your request. Please try again or contact support directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   // Slice data for views
   const visibleStories = SUCCESS_STORIES.slice(currentStoryIndex, currentStoryIndex + 3);
@@ -343,6 +413,12 @@ export default function LandingPage() {
         .card-compact p {
           font-size: 0.875rem !important;
         }
+
+        @keyframes bounceSlow {
+          0%, 100% { transform: translateY(-5%); }
+          50% { transform: translateY(5%); }
+        }
+        .animate-bounce-slow { animation: bounceSlow 3s infinite ease-in-out; }
       `}</style>
 
       {/* --- SINGLE NAVBAR (MasterMinds only) --- */}
@@ -750,7 +826,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* --- 9. CONTACT with enhanced animations (Reduced Size) --- */}
+        {/* --- 9. CONTACT with enhanced animations - EXACTLY MATCHING SCREENSHOT --- */}
         <section id="contact" className="py-12 md:py-16 px-4 md:px-6 reveal">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-6 md:mb-8">
@@ -759,33 +835,137 @@ export default function LandingPage() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 h-auto lg:h-[450px]">
-              <div className="lg:col-span-2 bg-white/80 backdrop-blur-xl rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6 border border-white shadow-md flex flex-col justify-center relative overflow-hidden group">
-                <div className="absolute -right-10 -top-10 w-24 h-24 bg-gradient-to-br from-[#0078d4]/10 to-[#00bcf2]/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
-                <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-3 md:mb-4 flex items-center gap-2">
-                  <span className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-blue-100 text-[#0078d4] flex items-center justify-center text-xs group-hover:rotate-12 transition-transform"><FaPaperPlane/></span>
-                  Send us a message
+              {/* ENROLLMENT FORM - EXACTLY LIKE SCREENSHOT */}
+              <div className="lg:col-span-2 bg-white rounded-xl md:rounded-2xl p-6 sm:p-7 md:p-8 border border-gray-200 shadow-lg flex flex-col justify-center relative overflow-hidden">
+                {/* Background Blobs - subtle */}
+                <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-30">
+                  <div className="absolute top-[-20%] left-[-10%] w-[40%] h-[40%] bg-blue-100 rounded-full blur-[60px]"></div>
+                  <div className="absolute bottom-[-20%] right-[-10%] w-[40%] h-[40%] bg-orange-100 rounded-full blur-[60px]"></div>
+                </div>
+
+                {/* Header with paper plane icon */}
+                <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                  <span className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-100 text-[#0078d4] flex items-center justify-center text-sm group-hover:rotate-12 transition-transform">
+                    <FaPaperPlane />
+                  </span>
+                
                 </h3>
-                <form className="space-y-3 md:space-y-4 relative z-10">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-                    <div className="space-y-1">
-                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Your Name</label>
-                      <input type="text" className="w-full px-3 py-2 md:px-4 md:py-2.5 rounded-lg border border-slate-200 bg-white/50 focus:border-[#0078d4] focus:ring-2 outline-none text-sm transition-all focus:scale-105" placeholder="John Doe" />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Phone Number</label>
-                      <input type="tel" className="w-full px-3 py-2 md:px-4 md:py-2.5 rounded-lg border border-slate-200 bg-white/50 focus:border-[#0078d4] focus:ring-2 outline-none text-sm transition-all focus:scale-105" placeholder="+91 98765 43210" />
-                    </div>
+
+                {/* Success Message */}
+                {showThankYou && (
+                  <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg text-center animate-fade-in">
+                    <p className="text-green-600 text-sm font-medium">✓ Message sent successfully!</p>
                   </div>
+                )}
+
+                <form className="space-y-5 relative z-10" onSubmit={handleSubmit}>
+                  {/* Full Name Field */}
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Your Name</label>
+                    <input 
+                      type="text"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white focus:border-[#0078d4] focus:ring-2 focus:ring-blue-200 outline-none text-sm transition-all"
+                      placeholder="John Doe"
+                      required
+                      disabled={isSubmitting}
+                    />
+                  </div>
+
+                  {/* Phone Number Field */}
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Phone Number</label>
+                    <input 
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white focus:border-[#0078d4] focus:ring-2 focus:ring-blue-200 outline-none text-sm transition-all"
+                      placeholder="+91 98765 43210"
+                      required
+                      disabled={isSubmitting}
+                    />
+                  </div>
+
+                  {/* Email Field */}
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Email Address</label>
-                    <input type="email" className="w-full px-3 py-2 md:px-4 md:py-2.5 rounded-lg border border-slate-200 bg-white/50 focus:border-[#0078d4] focus:ring-2 outline-none text-sm transition-all focus:scale-105" placeholder="john@example.com" />
+                    <input 
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white focus:border-[#0078d4] focus:ring-2 focus:ring-blue-200 outline-none text-sm transition-all"
+                      placeholder="john@example.com"
+                      required
+                      disabled={isSubmitting}
+                    />
                   </div>
-                  <button className="w-full py-2.5 md:py-3 bg-gradient-to-r from-[#0078d4] to-[#00bcf2] text-white font-bold rounded-lg shadow-md hover:-translate-y-1 transition-all text-sm md:text-base flex items-center justify-center gap-1 group">
-                    Book Free Counseling <FaArrowRight className="group-hover:translate-x-1 transition-transform text-xs"/>
+
+                  {/* Course Selection Field - Added to match screenshot exactly */}
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Select Your Course</label>
+                    <select
+                      name="course"
+                      value={formData.course}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white focus:border-[#0078d4] focus:ring-2 focus:ring-blue-200 outline-none text-sm transition-all"
+                      required
+                      disabled={isSubmitting}
+                    >
+                      <option value="">Select Your Course</option>
+                      <option value="cloud">Cloud Computing</option>
+                      <option value="testing">Manual/Automation Testing</option>
+                      <option value="data">Data Analytics</option>
+                      <option value="fullstack">Full Stack Development</option>
+                      <option value="networking">Networking</option>
+                      <option value="scrum">Scrum Master</option>
+                      <option value="sap">SAP</option>
+                      <option value="cadd">CADD</option>
+                      <option value="tally">Tally</option>
+                    </select>
+                  </div>
+
+                  {/* Submit Button */}
+                  <button 
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-3.5 bg-gradient-to-r from-[#0078d4] to-[#00bcf2] text-white font-bold rounded-lg shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all text-base flex items-center justify-center gap-2 group mt-4"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>SUBMITTING...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Book Free Counseling</span>
+                        <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
                   </button>
                 </form>
+
+                {/* Support Link */}
+                <p className="text-center text-xs font-medium text-slate-500 mt-6">
+                  NEED HELP?{' '}
+                  <a 
+                    href={`https://wa.me/${COMPANY_WHATSAPP}?text=Hi%2C%20I%20need%20help%20with%20enrollment`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#f47529] font-bold hover:underline"
+                  >
+                    CONTACT SUPPORT
+                  </a>
+                </p>
               </div>
 
+              {/* Map and Contact Info - Unchanged */}
               <div className="flex flex-col gap-3 h-full">
                 <div className="flex-1 bg-slate-200 rounded-xl md:rounded-2xl overflow-hidden shadow-md border border-white relative min-h-[200px] md:min-h-[220px] group">
                   <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3890.1306473489817!2d77.67679071015431!3d12.834833117810781!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae6d1c3868b67d%3A0x32ec955bf9ca2e2d!2sMaster%20Mind%20Learning%20Solutions!5e0!3m2!1sen!2sin!4v1771595608773!5m2!1sen!2sin" width="100%" height="100%" style={{border:0, filter: 'grayscale(100%) contrast(1.2)'}} className="absolute inset-0 group-hover:filter group-hover:grayscale-50 transition-all duration-700"></iframe>
@@ -816,6 +996,14 @@ export default function LandingPage() {
                          <div>
                            <p className="text-[8px] md:text-[9px] font-bold text-slate-400 uppercase">Email Us</p>
                            <p className="text-sm md:text-base font-bold">blrelectroniccity@gmail.com</p>
+                         </div>
+                      </div>
+                      <div className="w-full h-px bg-white/10"></div>
+                      <div className="flex items-center gap-2 group/item">
+                         <div className="w-6 h-6 md:w-8 md:h-8 bg-white/10 rounded-lg flex items-center justify-center text-green-400 group-hover/item:scale-110 transition-transform text-xs md:text-sm"><FaWhatsapp/></div>
+                         <div>
+                           <p className="text-[8px] md:text-[9px] font-bold text-slate-400 uppercase">WhatsApp</p>
+                           <p className="text-sm md:text-base font-bold">+91 76768 09008</p>
                          </div>
                       </div>
                    </div>
