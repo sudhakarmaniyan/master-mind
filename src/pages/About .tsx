@@ -21,48 +21,41 @@ const CAMPUS_VIDEOS = [
   "https://assets.mixkit.co/videos/preview/mixkit-students-walking-in-university-hallway-4796-large.mp4"
 ];
 
-// --- Mock Data ---
-const MENTORS = [
-  { name: "Jake Nackos", role: "Cloud Engineer", image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80" },
-  { name: "Sarah Martin", role: "Sr. Data Analyst", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" },
-  { name: "Raj Mardani", role: "AWS Architect", image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" },
-  { name: "Viola Davis", role: "Full Stack Dev", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80" }
-];
-
+// --- Gallery Items with Indian Students in Classroom Settings ---
 const GALLERY_ITEMS = [
   { 
     id: 1,
-    src: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
-    category: "Event",
-    title: "Annual Tech Summit",
+    src: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80",
+    category: "Classroom",
+    title: "Indian Students Coding Session",
     size: "md:col-span-2 md:row-span-2" // Large Hero
   },
   { 
     id: 2,
-    src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
-    category: "Classroom",
-    title: "Collaborative Coding",
+    src: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80",
+    category: "Collaborative Learning",
+    title: "Group Project Work",
     size: "md:col-span-1 md:row-span-1" // Standard
   },
   { 
     id: 3,
-    src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
+    src: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
     category: "Workshop",
-    title: "Design Thinking",
+    title: "Tech Workshop in Progress",
     size: "md:col-span-1 md:row-span-2" // Tall Portrait
   },
   { 
     id: 4,
-    src: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
-    category: "Community",
-    title: "Group Discussions",
+    src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
+    category: "Hackathon",
+    title: "24-Hour Coding Challenge",
     size: "md:col-span-1 md:row-span-1" // Standard
   },
   { 
     id: 5,
-    src: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&w=800&q=80",
-    category: "Career",
-    title: "Placement Drive",
+    src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
+    category: "Placement",
+    title: "Mock Interview Session",
     size: "md:col-span-2 md:row-span-1" // Wide
   }
 ];
@@ -98,7 +91,7 @@ export default function About() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentVideoIndex((prev) => (prev + 1) % CAMPUS_VIDEOS.length);
-    }, 8000); // Switch every 8s (gave a bit more time for YouTube load)
+    }, 8000); // Switch every 8s
     return () => clearInterval(interval);
   }, [currentVideoIndex]);
 
@@ -129,7 +122,7 @@ export default function About() {
         }
       `}</style>
 
-      {/* 1. HERO: About Mastermind (PADDING REDUCED HERE) */}
+      {/* 1. HERO: About Mastermind with Logo */}
       <section className="relative pt-16 md:pt-20 lg:pt-24 pb-20 px-6">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 reveal opacity-0 translate-y-10 transition-all duration-1000">
@@ -152,11 +145,14 @@ export default function About() {
           
           <div className="relative reveal opacity-0 translate-y-10 transition-all duration-1000 delay-200">
             <div className="absolute inset-0 bg-[#f47529] rounded-[3rem] rotate-6 opacity-10"></div>
-            <img 
-              src="https://img.freepik.com/free-photo/lavender-field-sunset-near-valensole_268835-3910.jpg?semt=ais_hybrid&w=740&q=80" 
-              alt="About Us Hero" 
-              className="relative z-10 w-full rounded-[3rem] shadow-2xl transform hover:-rotate-2 transition-transform duration-500"
-            />
+            {/* Logo Image Added Here */}
+            <div className="relative z-10 w-full rounded-[3rem] shadow-2xl transform hover:-rotate-2 transition-transform duration-500 overflow-hidden bg-white p-8 flex items-center justify-center">
+              <img 
+                src="/logo.png" 
+                alt="Master Mind Learning Solutions Logo" 
+                className="w-full max-w-[400px] h-auto object-contain"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -230,7 +226,7 @@ From interactive classrooms to career-focused events, life at Master Minds is de
               />
             )}
 
-            {/* Gradient Overlay (Only for aesthetics, careful not to block Youtube interaction if needed) */}
+            {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/10 pointer-events-none"></div>
 
             {/* Live Badge */}
@@ -253,7 +249,6 @@ From interactive classrooms to career-focused events, life at Master Minds is de
                 </h3>
               </div>
               <div className="flex gap-4">
-                {/* Note: Mute toggle forces YouTube iframe reload, best for MP4s or accept reload */}
                 <button onClick={toggleMute} className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 hover:bg-white/20 transition-all text-white">
                   {isMuted ? <FaVolumeMute /> : <FaVolumeUp />}
                 </button>
@@ -266,7 +261,7 @@ From interactive classrooms to career-focused events, life at Master Minds is de
         </div>
       </section>
 
-      {/* 4. GALLERY SECTION */}
+      {/* 4. GALLERY SECTION - Updated with Indian Students Images */}
       <section className="py-24 px-6 bg-slate-50">
         <div className="max-w-7xl mx-auto">
           
@@ -278,7 +273,7 @@ From interactive classrooms to career-focused events, life at Master Minds is de
                 <FaCamera className="text-[#0078d4] text-2xl opacity-50" />
               </h2>
               <p className="text-slate-500 text-lg">
-                Explore the vibrant moments that define life at Master Mind Learning Solutions. From interactive classroom sessions and technical workshops to project presentations and career development programs, our campus reflects a culture of learning, collaboration, and growth.
+                Explore the vibrant moments that define life at Master Mind Learning Solutions. From interactive classroom sessions and technical workshops to project presentations and career development programs, our campus reflects a culture of learning, collaboration, and growth with Indian students at the heart of it all.
               </p>
             </div>
             {/* Optional 'View All' Button */}
@@ -287,7 +282,7 @@ From interactive classrooms to career-focused events, life at Master Minds is de
             </button>
           </div>
 
-          {/* Bento Grid */}
+          {/* Bento Grid - All images now show Indian students in classroom settings */}
           <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[250px] gap-6">
             {GALLERY_ITEMS.map((item, i) => (
               <div 
@@ -295,7 +290,7 @@ From interactive classrooms to career-focused events, life at Master Minds is de
                 className={`group relative rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 ${item.size} reveal opacity-0 translate-y-10`}
                 style={{ transitionDelay: `${i * 100}ms` }}
               >
-                {/* Image */}
+                {/* Image - All showing Indian students */}
                 <img 
                   src={item.src} 
                   alt={item.title} 
@@ -333,7 +328,7 @@ From interactive classrooms to career-focused events, life at Master Minds is de
             ))}
           </div>
 
-          {/* Mobile 'View All' Button (only visible on small screens) */}
+          {/* Mobile 'View All' Button */}
           <div className="mt-8 text-center md:hidden">
              <button className="px-8 py-3 bg-white border border-slate-200 text-slate-700 font-bold rounded-xl shadow-sm">
                 View All Photos
@@ -343,34 +338,7 @@ From interactive classrooms to career-focused events, life at Master Minds is de
         </div>
       </section>
 
-      {/* 5. TEAM / MENTORS */}
-      <section className="py-24 px-6 bg-slate-50">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-slate-900 mb-16 reveal opacity-0 translate-y-10 transition-all duration-1000">
-            Meet the <span className="text-[#f47529]">Mentors</span>
-          </h2>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {MENTORS.map((mentor, index) => (
-              <div 
-                key={index} 
-                className="bg-white rounded-[2rem] p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 reveal opacity-0 translate-y-10 group"
-                style={{ transitionDelay: `${index * 100}ms` }}
-              >
-                <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-6 border-4 border-slate-50 shadow-inner group-hover:border-[#f47529]/20 transition-colors">
-                  <img 
-                    src={mentor.image} 
-                    alt={mentor.name} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
-                <h4 className="text-xl font-bold text-slate-900">{mentor.name}</h4>
-                <p className="text-[#0078d4] font-medium text-sm mt-1 uppercase tracking-wide">{mentor.role}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* 5. TEAM / MENTORS SECTION - COMPLETELY REMOVED as requested */}
 
     </div>
   );

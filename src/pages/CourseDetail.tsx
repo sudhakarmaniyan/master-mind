@@ -23,21 +23,19 @@ export default function CourseDetail() {
   const { id } = useParams();
   const [showEnrollForm, setShowEnrollForm] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     phone: '',
-    dob: '',
-    qualification: '',
-    passingYear: '',
-    occupation: '',
-    batch: '',
-    mode: '',
-    source: '',
+    course: '',
     comments: ''
   });
 
-  // Comprehensive course database with all new courses
+  // Company WhatsApp number (replace with your actual number)
+  const COMPANY_WHATSAPP = "917676809008"; // Format: country code + number without +
+
+  // Comprehensive course database with all new courses and specific images
   const courseDatabase = {
     // Cloud Computing
     "1": {
@@ -65,7 +63,17 @@ export default function CourseDetail() {
         { week: 7, topic: "Infrastructure as Code", description: "Terraform and CloudFormation for automated deployments" },
         { week: 8, topic: "Cloud Security & Compliance", description: "Security groups, encryption, compliance frameworks" },
         { week: 9, topic: "Monitoring & Performance", description: "CloudWatch, Azure Monitor, and Stackdriver" },
-        { week: 10, topic: "Capstone Project", description: "Multi-cloud architecture design and implementation" }
+        { week: 10, topic: "Live Projects", description: "Build real-world cloud solutions including multi-cloud architecture and serverless applications" }
+      ],
+      projects: [
+        { 
+          title: "Multi-Cloud Disaster Recovery Solution", 
+          description: "Design and implement a disaster recovery solution that spans across AWS and Azure, ensuring business continuity with automated failover and data replication."
+        },
+        { 
+          title: "Serverless E-Commerce Platform", 
+          description: "Build a complete e-commerce platform using AWS Lambda, API Gateway, DynamoDB, and S3, demonstrating serverless architecture best practices."
+        }
       ],
       prerequisites: [
         "Basic understanding of operating systems",
@@ -86,7 +94,6 @@ export default function CourseDetail() {
         "Google Cloud Associate Engineer",
         "Certified Kubernetes Administrator"
       ],
-      fee: "₹45,000",
       batchStart: "April 15, 2026",
       classMode: "Online & Classroom",
       durationWeeks: 10,
@@ -122,7 +129,17 @@ export default function CourseDetail() {
         { week: 9, topic: "Performance Testing", description: "JMeter for load and stress testing" },
         { week: 10, topic: "Mobile Testing", description: "Appium for mobile application testing" },
         { week: 11, topic: "CI/CD Integration", description: "Jenkins pipeline for automated test execution" },
-        { week: 12, topic: "Capstone Project", description: "Complete test automation framework development" }
+        { week: 12, topic: "Live Projects", description: "Develop complete test automation frameworks and execute real-world testing scenarios" }
+      ],
+      projects: [
+        { 
+          title: "E-Commerce Test Automation Suite", 
+          description: "Develop a comprehensive test automation framework for an e-commerce website using Selenium WebDriver, TestNG, and Cucumber with Page Object Model design pattern."
+        },
+        { 
+          title: "API Testing Framework for Banking Application", 
+          description: "Create a robust API testing framework using REST Assured for a banking application, including authentication flows, data validation, and performance testing with JMeter."
+        }
       ],
       prerequisites: [
         "Basic computer knowledge",
@@ -143,7 +160,6 @@ export default function CourseDetail() {
         "ISTQB Advanced Level",
         "Certified Agile Tester"
       ],
-      fee: "₹35,000",
       batchStart: "April 10, 2026",
       classMode: "Online & Classroom",
       durationWeeks: 12,
@@ -181,7 +197,17 @@ export default function CourseDetail() {
         { week: 11, topic: "Real-world Projects", description: "E-commerce, finance, and healthcare analytics" },
         { week: 12, topic: "Portfolio Development", description: "Building your data analytics portfolio" },
         { week: 13, topic: "Interview Preparation", description: "Technical interviews and case studies" },
-        { week: 14, topic: "Capstone Project", description: "Complete data analytics solution for real business problem" }
+        { week: 14, topic: "Live Projects", description: "Build end-to-end data analytics solutions for real business problems" }
+      ],
+      projects: [
+        { 
+          title: "Customer Churn Prediction Dashboard", 
+          description: "Build an interactive dashboard using Tableau and Python to predict customer churn for a telecom company, incorporating machine learning models and business insights."
+        },
+        { 
+          title: "Sales Analytics & Forecasting System", 
+          description: "Create a comprehensive sales analytics solution using Power BI and SQL, including sales forecasting, regional performance analysis, and interactive KPI dashboards."
+        }
       ],
       prerequisites: [
         "Basic mathematics knowledge",
@@ -202,7 +228,6 @@ export default function CourseDetail() {
         "Google Data Analytics Certificate",
         "IBM Data Analyst Certificate"
       ],
-      fee: "₹40,000",
       batchStart: "April 20, 2026",
       classMode: "Online & Classroom",
       durationWeeks: 14,
@@ -242,7 +267,17 @@ export default function CourseDetail() {
         { week: 13, topic: "TypeScript", description: "Type safety and better development experience" },
         { week: 14, topic: "Next.js Framework", description: "SSR, SSG, and modern React frameworks" },
         { week: 15, topic: "GraphQL", description: "Apollo Client and Server for efficient data fetching" },
-        { week: 16, topic: "Capstone Project", description: "Complete production-ready full stack application" }
+        { week: 16, topic: "Live Projects", description: "Build complete production-ready full stack applications" }
+      ],
+      projects: [
+        { 
+          title: "Social Media Analytics Dashboard", 
+          description: "Build a full-stack social media analytics platform using React, Node.js, and MongoDB that aggregates data from multiple platforms and provides real-time engagement metrics and content performance insights."
+        },
+        { 
+          title: "E-Learning Management System", 
+          description: "Develop a comprehensive learning management system with course creation, video streaming, quiz modules, and progress tracking using the MERN stack with real-time features using Socket.io."
+        }
       ],
       prerequisites: [
         "Basic computer skills",
@@ -263,7 +298,6 @@ export default function CourseDetail() {
         "MongoDB Associate Developer",
         "AWS Certified Developer"
       ],
-      fee: "₹55,000",
       batchStart: "April 5, 2026",
       classMode: "Online & Classroom",
       durationWeeks: 16,
@@ -299,7 +333,17 @@ export default function CourseDetail() {
         { week: 9, topic: "Wireless Networking", description: "WiFi standards, configuration, and security" },
         { week: 10, topic: "Network Automation", description: "Python for network automation and Ansible" },
         { week: 11, topic: "Troubleshooting", description: "Methodologies and tools for network issues" },
-        { week: 12, topic: "CCNA Exam Prep", description: "Practice exams and final review" }
+        { week: 12, topic: "Live Projects", description: "Design and implement complete enterprise network solutions with monitoring and automation" }
+      ],
+      projects: [
+        { 
+          title: "Enterprise Network Design & Implementation", 
+          description: "Design and simulate a complete enterprise network with multiple VLANs, routing protocols (OSPF, EIGRP), and security policies using Cisco Packet Tracer or GNS3."
+        },
+        { 
+          title: "Network Monitoring & Automation System", 
+          description: "Build a network monitoring solution using Python, SNMP, and Grafana to track network performance, alert on anomalies, and automate configuration backups."
+        }
       ],
       prerequisites: [
         "Basic computer literacy",
@@ -320,7 +364,6 @@ export default function CourseDetail() {
         "Juniper JNCIA",
         "Cisco CCNP (Advanced)"
       ],
-      fee: "₹38,000",
       batchStart: "April 12, 2026",
       classMode: "Online & Classroom",
       durationWeeks: 12,
@@ -352,7 +395,17 @@ export default function CourseDetail() {
         { week: 5, topic: "Daily Scrum & Facilitation", description: "Effective stand-ups and team facilitation" },
         { week: 6, topic: "Sprint Review & Retrospective", description: "Inspect and adapt techniques for continuous improvement" },
         { week: 7, topic: "Agile Metrics", description: "Velocity, burndown charts, and forecasting" },
-        { week: 8, topic: "Scaling Agile", description: "SAFe, LeSS, and multi-team coordination" }
+        { week: 8, topic: "Live Projects", description: "Lead real Agile teams through complete project cycles and implement Scrum frameworks" }
+      ],
+      projects: [
+        { 
+          title: "Agile Transformation for a Legacy Team", 
+          description: "Create a complete Agile transformation plan for a traditional development team, including training materials, Scrum event templates, and metrics dashboard for tracking progress."
+        },
+        { 
+          title: "Scaled Agile Framework Implementation", 
+          description: "Design a scaled Agile framework for a multi-team product development organization, including coordination mechanisms, dependency management, and release planning strategies."
+        }
       ],
       prerequisites: [
         "Team collaboration experience",
@@ -373,7 +426,6 @@ export default function CourseDetail() {
         "SAFe Agilist",
         "PMI-ACP"
       ],
-      fee: "₹32,000",
       batchStart: "April 18, 2026",
       classMode: "Online & Classroom",
       durationWeeks: 8,
@@ -417,7 +469,17 @@ export default function CourseDetail() {
         { week: 17, topic: "Industry Best Practices", description: "SAP best practices for various industries" },
         { week: 18, topic: "Case Studies", description: "Real-world SAP implementation scenarios" },
         { week: 19, topic: "Certification Preparation", description: "Practice exams and module-specific prep" },
-        { week: 20, topic: "Capstone Project", description: "Complete SAP implementation project" }
+        { week: 20, topic: "Live Projects", description: "Complete real SAP implementation projects with multiple module integrations" }
+      ],
+      projects: [
+        { 
+          title: "SAP FICO Implementation for Manufacturing Company", 
+          description: "Design and configure SAP FICO modules for a medium-sized manufacturing company, including GL, AP, AR, asset accounting, and cost center accounting with integration to MM and SD."
+        },
+        { 
+          title: "ABAP Report Development Suite", 
+          description: "Develop a suite of custom ABAP reports for business intelligence, including ALV reports, interactive reports, and BAPI integration for real-time data extraction."
+        }
       ],
       prerequisites: [
         "Accounting fundamentals (for FICO)",
@@ -438,7 +500,6 @@ export default function CourseDetail() {
         "SAP MM Certification",
         "SAP ABAP Certification"
       ],
-      fee: "₹65,000",
       batchStart: "April 25, 2026",
       classMode: "Online & Classroom",
       durationWeeks: 20,
@@ -474,7 +535,17 @@ export default function CourseDetail() {
         { week: 9, topic: "Sheet Metal Design", description: "Sheet metal features and flat patterns" },
         { week: 10, topic: "Rendering & Animation", description: "Visualization techniques and motion studies" },
         { week: 11, topic: "Industry Applications", description: "Architectural, mechanical, and product design" },
-        { week: 12, topic: "Portfolio Project", description: "Complete design project for portfolio" }
+        { week: 12, topic: "Live Projects", description: "Create professional design portfolios with complete mechanical and architectural projects" }
+      ],
+      projects: [
+        { 
+          title: "Mechanical Assembly Design Project", 
+          description: "Create a complete mechanical assembly of a gearbox system using SolidWorks, including all parts, assemblies, engineering drawings, and exploded view animations."
+        },
+        { 
+          title: "Architectural Building Design", 
+          description: "Design a modern residential building using AutoCAD and Revit, including floor plans, elevations, sections, 3D visualization, and construction documentation."
+        }
       ],
       prerequisites: [
         "Basic drawing skills",
@@ -495,7 +566,6 @@ export default function CourseDetail() {
         "Dassault Systèmes Certification",
         "AutoCAD Specialist"
       ],
-      fee: "₹36,000",
       batchStart: "April 8, 2026",
       classMode: "Online & Classroom",
       durationWeeks: 12,
@@ -527,7 +597,17 @@ export default function CourseDetail() {
         { week: 5, topic: "GST Configuration", description: "GST setup, tax rates, and return filing" },
         { week: 6, topic: "TDS & TCS", description: "Tax deduction and collection at source" },
         { week: 7, topic: "Payroll Processing", description: "Salary calculations, PF, and ESI" },
-        { week: 8, topic: "Reports & Finalization", description: "Financial statements and year-end closing" }
+        { week: 8, topic: "Live Projects", description: "Set up complete accounting systems for real businesses with GST compliance and reporting" }
+      ],
+      projects: [
+        { 
+          title: "Complete Accounting System for Retail Business", 
+          description: "Set up a complete accounting system for a retail business including inventory management, GST compliance, payroll processing, and financial statement generation."
+        },
+        { 
+          title: "GST Compliance & Reporting Dashboard", 
+          description: "Create a comprehensive GST compliance system with invoice management, return filing, reconciliation, and reporting dashboards for multiple business entities."
+        }
       ],
       prerequisites: [
         "Basic accounting knowledge",
@@ -548,7 +628,6 @@ export default function CourseDetail() {
         "GST Practitioner Certification",
         "Tally Prime Certification"
       ],
-      fee: "₹28,000",
       batchStart: "April 22, 2026",
       classMode: "Online & Classroom",
       durationWeeks: 8,
@@ -568,10 +647,48 @@ export default function CourseDetail() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setShowEnrollForm(false);
-    setShowThankYou(true);
+    setIsSubmitting(true);
+
+    try {
+      // Get the selected course name
+      const selectedCourseName = formData.course ? 
+        (formData.course === 'cloud' ? 'Cloud Computing' :
+         formData.course === 'testing' ? 'Manual/Automation Testing' :
+         formData.course === 'data' ? 'Data Analytics' :
+         formData.course === 'fullstack' ? 'Full Stack Development' :
+         formData.course === 'networking' ? 'Networking' :
+         formData.course === 'scrum' ? 'Scrum Master' :
+         formData.course === 'sap' ? 'SAP' :
+         formData.course === 'cadd' ? 'CADD' :
+         formData.course === 'tally' ? 'Tally' : formData.course) : 'Not selected';
+
+      // Format the WhatsApp message
+      const message = `*New Course Enrollment Request*%0A%0A` +
+        `*Student Details:*%0A` +
+        `👤 *Name:* ${formData.fullName}%0A` +
+        `📧 *Email:* ${formData.email}%0A` +
+        `📞 *Phone:* ${formData.phone}%0A` +
+        `📚 *Course:* ${selectedCourseName}%0A` +
+        `💬 *Comments:* ${formData.comments || 'No comments provided'}`;
+
+      // Create WhatsApp URL
+      const whatsappUrl = `https://wa.me/${COMPANY_WHATSAPP}?text=${message}`;
+
+      // Open WhatsApp in new tab
+      window.open(whatsappUrl, '_blank');
+
+      // Close the form and show thank you message
+      setShowEnrollForm(false);
+      setShowThankYou(true);
+
+    } catch (error) {
+      console.error('Error sending WhatsApp message:', error);
+      alert('There was an error submitting your application. Please try again or contact support directly.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const closeThankYou = () => {
@@ -581,13 +698,7 @@ export default function CourseDetail() {
       fullName: '',
       email: '',
       phone: '',
-      dob: '',
-      qualification: '',
-      passingYear: '',
-      occupation: '',
-      batch: '',
-      mode: '',
-      source: '',
+      course: '',
       comments: ''
     });
   };
@@ -610,250 +721,136 @@ export default function CourseDetail() {
   return (
     <div className="bg-[#fcfcfd] min-h-screen font-sans">
       
-      {/* Enroll Form Modal */}
+      {/* Enroll Form Modal - Updated to match screenshot */}
       {showEnrollForm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-[2.5rem] max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
+          <div className="bg-white rounded-2xl max-w-md w-full relative shadow-2xl">
             <button 
               onClick={() => setShowEnrollForm(false)}
-              className="absolute top-6 right-6 w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors z-10"
+              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-colors z-10"
             >
-              <HiOutlineX className="text-xl" />
+              <HiOutlineX className="text-lg" />
             </button>
 
-            <div className="p-8 lg:p-12">
-              <div className="mb-8">
-                <h2 className="text-3xl font-black text-slate-900 mb-2">Enroll in Program</h2>
-                <p className="text-slate-500">
-                  <span className="font-bold text-[#008bdc]">{course.title}</span> - {course.duration}
-                </p>
+            <div className="p-8">
+              {/* Header with year */}
+              <div className="text-center mb-6">
+                <h2 className="text-3xl font-bold text-gray-800">ENROLLMENT <span className="text-[#f27324]">2026</span></h2>
               </div>
 
-              <form className="space-y-6" onSubmit={handleSubmit}>
-                {/* Personal Information */}
-                <div className="space-y-4">
-                  <h3 className="font-black text-slate-900 text-lg">Personal Information</h3>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-2">Full Name *</label>
-                      <input 
-                        type="text"
-                        name="fullName"
-                        value={formData.fullName}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#008bdc] focus:border-transparent"
-                        placeholder="Enter your full name"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-2">Email Address *</label>
-                      <input 
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#008bdc] focus:border-transparent"
-                        placeholder="Enter your email"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-2">Phone Number *</label>
-                      <input 
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#008bdc] focus:border-transparent"
-                        placeholder="Enter your phone number"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-2">Date of Birth</label>
-                      <input 
-                        type="date"
-                        name="dob"
-                        value={formData.dob}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#008bdc] focus:border-transparent"
-                      />
-                    </div>
-                  </div>
+              <form className="space-y-4" onSubmit={handleSubmit}>
+                {/* Apply Now Button (disabled - just for display) */}
+                <div className="text-center mb-2">
+                  <span className="text-sm font-medium text-gray-500">APPLY NOW</span>
                 </div>
 
-                {/* Educational Background */}
-                <div className="space-y-4">
-                  <h3 className="font-black text-slate-900 text-lg">Educational Background</h3>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-2">Highest Qualification *</label>
-                      <select 
-                        name="qualification"
-                        value={formData.qualification}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#008bdc] focus:border-transparent"
-                        required
-                      >
-                        <option value="">Select qualification</option>
-                        <option value="highschool">High School</option>
-                        <option value="diploma">Diploma</option>
-                        <option value="bachelor">Bachelor's Degree</option>
-                        <option value="master">Master's Degree</option>
-                        <option value="other">Other</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-bold text-slate-700 mb-2">Year of Passing</label>
-                      <input 
-                        type="number"
-                        name="passingYear"
-                        value={formData.passingYear}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#008bdc] focus:border-transparent"
-                        placeholder="YYYY"
-                        min="1990"
-                        max="2030"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">Current/Previous Occupation</label>
-                    <input 
-                      type="text"
-                      name="occupation"
-                      value={formData.occupation}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#008bdc] focus:border-transparent"
-                      placeholder="e.g., Student, Software Developer, Accountant"
-                    />
-                  </div>
+                {/* Form Fields */}
+                <div>
+                  <input 
+                    type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f27324] focus:border-transparent"
+                    placeholder="Full Name"
+                    required
+                    disabled={isSubmitting}
+                  />
                 </div>
 
-                {/* Course Preferences */}
-                <div className="space-y-4">
-                  <h3 className="font-black text-slate-900 text-lg">Course Preferences</h3>
-                  
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">Preferred Batch *</label>
-                    <select 
-                      name="batch"
-                      value={formData.batch}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#008bdc] focus:border-transparent"
-                      required
-                    >
-                      <option value="">Select batch</option>
-                      <option value="april10">{course.batchStart} (Weekday Morning)</option>
-                      <option value="april15">April 15, 2026 (Weekday Evening)</option>
-                      <option value="april20">April 20, 2026 (Weekend)</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">Learning Mode *</label>
-                    <div className="flex gap-6">
-                      <label className="flex items-center gap-2">
-                        <input 
-                          type="radio" 
-                          name="mode" 
-                          value="online"
-                          checked={formData.mode === 'online'}
-                          onChange={handleInputChange}
-                          className="text-[#008bdc]" 
-                          required
-                        />
-                        <span className="text-slate-600">Online</span>
-                      </label>
-                      <label className="flex items-center gap-2">
-                        <input 
-                          type="radio" 
-                          name="mode" 
-                          value="classroom"
-                          checked={formData.mode === 'classroom'}
-                          onChange={handleInputChange}
-                          className="text-[#008bdc]" 
-                        />
-                        <span className="text-slate-600">Classroom</span>
-                      </label>
-                      <label className="flex items-center gap-2">
-                        <input 
-                          type="radio" 
-                          name="mode" 
-                          value="hybrid"
-                          checked={formData.mode === 'hybrid'}
-                          onChange={handleInputChange}
-                          className="text-[#008bdc]" 
-                        />
-                        <span className="text-slate-600">Hybrid</span>
-                      </label>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">How did you hear about us?</label>
-                    <select 
-                      name="source"
-                      value={formData.source}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#008bdc] focus:border-transparent"
-                    >
-                      <option value="">Select option</option>
-                      <option value="google">Google Search</option>
-                      <option value="social">Social Media</option>
-                      <option value="friend">Friend/Referral</option>
-                      <option value="ad">Advertisement</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
+                <div>
+                  <input 
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f27324] focus:border-transparent"
+                    placeholder="Email Address"
+                    required
+                    disabled={isSubmitting}
+                  />
                 </div>
 
-                {/* Additional Information */}
-                <div className="space-y-4">
-                  <h3 className="font-black text-slate-900 text-lg">Additional Information</h3>
-                  
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2">Questions or Comments</label>
-                    <textarea 
-                      name="comments"
-                      value={formData.comments}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[#008bdc] focus:border-transparent"
-                      rows={3}
-                      placeholder="Any specific questions about the course?"
-                    ></textarea>
-                  </div>
-
-                  <div className="flex items-start gap-2">
-                    <input type="checkbox" id="terms" className="mt-1" required />
-                    <label htmlFor="terms" className="text-sm text-slate-600">
-                      I agree to the terms and conditions and authorize Master Mind to contact me regarding this enrollment.
-                    </label>
-                  </div>
+                <div>
+                  <input 
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f27324] focus:border-transparent"
+                    placeholder="Phone Number"
+                    required
+                    disabled={isSubmitting}
+                  />
                 </div>
 
-                {/* Submit Buttons */}
-                <div className="flex gap-4 pt-4">
-                  <button
-                    type="submit"
-                    className="flex-1 bg-[#008bdc] hover:bg-blue-600 text-white py-4 rounded-xl font-black text-sm transition-all"
+                <div>
+                  <select 
+                    name="course"
+                    value={formData.course}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f27324] focus:border-transparent text-gray-500"
+                    required
+                    disabled={isSubmitting}
                   >
-                    Submit Enrollment
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setShowEnrollForm(false)}
-                    className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-4 rounded-xl font-black text-sm transition-all"
-                  >
-                    Cancel
-                  </button>
+                    <option value="" disabled>Select Your Course</option>
+                    <option value="cloud">Cloud Computing</option>
+                    <option value="testing">Manual/Automation Testing</option>
+                    <option value="data">Data Analytics</option>
+                    <option value="fullstack">Full Stack Development</option>
+                    <option value="networking">Networking</option>
+                    <option value="scrum">Scrum Master</option>
+                    <option value="sap">SAP</option>
+                    <option value="cadd">CADD</option>
+                    <option value="tally">Tally</option>
+                  </select>
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`w-full bg-[#f27324] hover:bg-orange-600 text-white py-3 rounded-lg font-bold text-lg transition-all shadow-md flex items-center justify-center gap-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <span>SUBMITTING...</span>
+                    </>
+                  ) : (
+                    'SUBMIT APPLICATION'
+                  )}
+                </button>
+
+                {/* Additional fields from screenshot - Comments/Questions */}
+                <div>
+                  <textarea 
+                    name="comments"
+                    value={formData.comments}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#f27324] focus:border-transparent"
+                    rows={2}
+                    placeholder="Questions or comments (optional)"
+                    disabled={isSubmitting}
+                  ></textarea>
+                </div>
+
+                {/* Support Link */}
+                <div className="text-center mt-4">
+                  <p className="text-sm text-gray-600">
+                    NEED HELP?{' '}
+                    <a 
+                      href={`https://wa.me/${COMPANY_WHATSAPP}?text=Hi%2C%20I%20need%20help%20with%20enrollment`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#f27324] font-semibold hover:underline"
+                    >
+                      CONTACT SUPPORT
+                    </a>
+                  </p>
                 </div>
               </form>
             </div>
@@ -924,7 +921,7 @@ export default function CourseDetail() {
                 <p className="text-sm mb-4 opacity-90">Connect with us on social media</p>
                 <div className="flex justify-center gap-4">
                   <a 
-                    href="https://wa.me/917676809008" 
+                    href={`https://wa.me/${COMPANY_WHATSAPP}`}
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center text-2xl hover:scale-110 transition-transform"
@@ -1040,6 +1037,32 @@ export default function CourseDetail() {
             </div>
           </div>
 
+          {/* Featured Projects Section */}
+          <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-sm border border-slate-100">
+            <h2 className="text-3xl font-black text-slate-900 mb-8 uppercase tracking-tighter flex items-center gap-3">
+               Featured Live Projects
+               <div className="h-1 flex-grow bg-slate-50 rounded-full ml-4"></div>
+            </h2>
+            <div className="space-y-6">
+              {course.projects?.map((project, index) => (
+                <div key={index} className="relative group">
+                  <div className={`absolute -inset-1 bg-gradient-to-r ${course.accent} rounded-2xl opacity-20 group-hover:opacity-30 blur transition-opacity`}></div>
+                  <div className="relative bg-white p-6 rounded-2xl border border-slate-100">
+                    <div className="flex items-start gap-4">
+                      <div className={`w-10 h-10 rounded-xl bg-gradient-to-r ${course.accent} flex items-center justify-center text-white font-black text-base shrink-0`}>
+                        {index + 1}
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-black text-slate-900 mb-2">{project.title}</h3>
+                        <p className="text-slate-600 leading-relaxed">{project.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Curriculum Timeline */}
           <div className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-sm border border-slate-100">
             <h2 className="text-3xl font-black text-slate-900 mb-10 uppercase tracking-tighter">Program Curriculum</h2>
@@ -1110,14 +1133,7 @@ export default function CourseDetail() {
                </span>
             </div>
 
-            <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter">Program Fee & Schedule</h3>
-            
-            {/* Fee Display */}
-            <div className="mb-8 p-6 bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl text-white">
-              <p className="text-sm opacity-80 mb-1">Total Program Fee</p>
-              <p className="text-4xl font-black">{course.fee}</p>
-              <p className="text-xs opacity-60 mt-2">EMI options available starting at ₹3,500/month</p>
-            </div>
+            <h3 className="text-2xl font-black text-slate-900 mb-6 tracking-tighter">Program Schedule</h3>
 
             {/* Quick Info Grid */}
             <div className="space-y-4 mb-8">
