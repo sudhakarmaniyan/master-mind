@@ -19,10 +19,8 @@ import {
   FaBuilding,
   FaPaperPlane,
   FaMapMarkedAlt,
-  FaUser,
   FaWhatsapp
 } from 'react-icons/fa';
-import { HiOutlineUser, HiOutlineMail, HiOutlinePhone, HiOutlineBookOpen, HiOutlineCheckCircle, HiOutlinePaperAirplane } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 
 // --- Success Stories Data (Indian Names and Companies) ---
